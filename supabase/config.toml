@@ -1,0 +1,61 @@
+project_id = "yswfjckmxmosawmsuljd"
+
+[functions.analyze-response]
+verify_jwt = true
+
+[functions.test-randomization]
+verify_jwt = true
+
+[functions.voice-chat]
+verify_jwt = true
+
+[functions.validate-parent-invitation]
+verify_jwt = false
+
+[functions.rebuild-competences]
+verify_jwt = true
+
+[functions.enrich-missing-analysis]
+verify_jwt = true
+
+[functions.send-email]
+verify_jwt = false
+
+[functions.delete-user-account]
+verify_jwt = true
+
+[functions.create-parent-account]
+verify_jwt = false
+
+[functions.confirm-email]
+verify_jwt = false
+
+[functions.signup-student]
+verify_jwt = false
+
+[functions.complete-signup]
+verify_jwt = false
+
+[functions.signup-parent]
+verify_jwt = false
+
+[functions.complete-parent-signup]
+verify_jwt = false
+
+[functions.invite-parents]
+verify_jwt = true
+
+[functions.request-password-reset]
+verify_jwt = false
+
+[functions.reset-password]
+verify_jwt = false
+
+[functions.create-test-accounts]
+verify_jwt = true
+
+[functions.upload-static-asset]
+verify_jwt = true
+
+[functions.save-daily-snapshots]
+verify_jwt = false

@@ -1,0 +1,134 @@
+/* ========================================
+   CSS MINIMAL KATEX - NE TOUCHE PAS AUX FRACTIONS
+   ======================================== */
+
+/* 🔴 IMPORTANT: On ne touche PAS aux classes .frac, .frac-line, .mfrac
+   Pour éviter de casser l'affichage des fractions */
+
+/* Fix UNIQUEMENT pour le débordement horizontal */
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin: 1em 0;
+}
+
+/* Alignement vertical des formules inline */
+.math-text span.inline-block {
+  vertical-align: middle !important;
+}
+
+/* Espacement autour des formules block */
+.math-text > div {
+  margin: 1em 0;
+}
+
+/* Responsive: ajuster taille sur mobile */
+@media (max-width: 640px) {
+  .katex-display {
+    font-size: 0.95em;
+  }
+}
+
+/* Style des erreurs KaTeX */
+.katex-error {
+  color: #c00;
+  background-color: #fee;
+  padding: 0.2em 0.4em;
+  border-radius: 0.25em;
+  font-family: monospace;
+  font-size: 0.9em;
+}
+
+/* C'EST TOUT. On ne touche à RIEN d'autre pour ne pas casser KaTeX. */
+
+/* ============================
+   ALIGNEMENT INLINE — CORRECT
+   ============================ */
+
+/* 1) Le wrapper qu'on contrôle côté React */
+.math-text .math-inline {
+  display: inline-flex;
+  align-items: center;           /* centre verticalement */
+  vertical-align: middle;
+  line-height: 1;                /* évite que KaTeX gonfle la ligne */
+}
+
+/* 2) Cibler le vrai conteneur KaTeX à l'intérieur de notre wrapper */
+.math-text .math-inline > .katex {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1.1;
+  position: relative;
+  top: -0.02em;                  /* micro-ajustement par défaut */
+}
+
+/* 3) Compensation UNIQUEMENT pour les inline "hauts" (frac, sqrt, etc.) */
+.math-text .math-inline.math-inline--tall > .katex {
+  top: -0.12em;                  /* remonte un peu plus les fractions */
+}
+
+/* 4) Fraction : micro-ajustement fin, sans toucher aux .mfrac globales */
+.math-text .math-inline.math-inline--tall .mfrac {
+  transform: translateY(-0.02em);
+}
+
+/* 5) Blocs $$...$$ uniformes et centrés */
+.math-text .katex-display {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+  margin: 1.1em 0 !important;
+  overflow-x: auto;
+}
+.math-text .katex-display > .katex {
+  display: inline-block;
+  margin: 0 auto;
+}
+
+/* 6) Respiration du texte (aération des réponses) */
+.math-text { line-height: 1.6; word-break: break-word; }
+.math-text p, .math-text div { margin: 0.6em 0; }
+.math-text ol, .math-text ul { margin: 0.6em 0; padding-left: 1.5rem; }
+.math-text li { margin-bottom: 0.35rem; }
+
+/* 7) Fix débordement messages chat sur mobile uniquement */
+@media (max-width: 640px) {
+  /* CRITICAL: Forcer les éléments KaTeX à respecter la largeur du parent */
+  .math-text .katex {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    display: inline-block;
+  }
+  
+  /* Wrapper des formules inline - forcer contrainte de largeur */
+  .math-text .math-inline {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  
+  /* Block math - renforcer la contrainte */
+  .math-text > div {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  /* Tables et blocs de code - scroll horizontal si nécessaire */
+  .math-text pre,
+  .math-text table {
+    overflow-x: auto;
+    max-width: 100%;
+  }
+
+  /* Images dans les messages */
+  .math-text img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Paragraphes - renforcer le word-wrap */
+  .math-text p {
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+}
